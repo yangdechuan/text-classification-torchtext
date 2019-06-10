@@ -1,6 +1,5 @@
 import time
 
-import nltk
 import torch
 from torch import optim
 import torch.nn.functional as F
@@ -38,13 +37,10 @@ if __name__ == "__main__":
                      vectors=torchtext.vocab.GloVe(name="840B", dim=300))
     LABEL.build_vocab(train)
     # Step 4: Define iterator.
-    train_iter = torchtext.data.Iterator(train,
-                                         batch_size=BATCH_SIZE,
-                                         shuffle=True)
-    val_iter = torchtext.data.Iterator(val,
-                                       batch_size=BATCH_SIZE)
-    test_iter = torchtext.data.Iterator(test,
-                                        batch_size=BATCH_SIZE)
+    train_iter, val_iter, test_iter = torchtext.data.Iterator.splits(
+        (train, val, test),
+        batch_size=BATCH_SIZE,
+    )
     print("vocab size: {}".format(len(TEXT.vocab.itos)))
 
     # =========================================== #

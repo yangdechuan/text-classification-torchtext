@@ -23,7 +23,6 @@ if __name__ == "__main__":
     # Step 1. Define field
     TEXT = torchtext.data.Field(fix_length=MAX_LEN,
                                 lower=True,
-                                tokenize=nltk.wordpunct_tokenize,
                                 batch_first=True)
     LABEL = torchtext.data.Field(sequential=False,
                                  unk_token=None,  # Make sure index form 0.
